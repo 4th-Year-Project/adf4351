@@ -268,6 +268,13 @@ class ADF4351
        allowed values 0-4
     */
     byte pwrlevel ;
+    /*!
+       The charge pump curent settings
+       Change to tune the loop bandwidth
+       Default 7 = 2.5mA
+       allowed values 0-15
+    */
+    byte chrgPmpCurrent ;
 
 };
 

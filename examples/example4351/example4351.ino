@@ -29,6 +29,7 @@ void setup()
   vfo.BandSelClock = 80 ;
   vfo.RCounter = 1 ;  ///< R counter to 1 (no division)
   vfo.ChanStep = steps[2] ;  ///< set to 10 kHz steps
+  vfo.chrgPmpCurrent = 7 ; /// Set the current to 2.5mA
 
   /*!
      sets the reference frequency to 10 Mhz

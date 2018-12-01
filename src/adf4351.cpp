@@ -105,6 +105,7 @@ ADF4351::ADF4351(byte pin, uint8_t mode, unsigned long  speed, uint8_t order )
   ClkDiv = 150 ;
   Prescaler = 0 ;
   pwrlevel = 0 ;
+  chrgPmpCurrent = 7;
 }
 
 void ADF4351::init()
@@ -240,7 +241,9 @@ int  ADF4351::setf(uint32_t freq)
     R[2].setbf(8, 1, 0) ; // ldf ,frac-n mode
   }
 
-  R[2].setbf(9, 4, 7) ; // charge pump
+  //Charge pump current settings
+  // 0-15 correspoding to 0.3mA - 5ma
+  R[2].setbf(9, 4, chrgPmpCurrent) ; // charge pump
   // (13,1,0) dbl buf
   R[2].setbf(14, 10, RCounter) ; //  r counter
   R[2].setbf(24, 1, RD1Rdiv2)  ; // RD1_RDiv2
@@ -334,7 +337,7 @@ void ADF4351::writeDev(int n, Reg r)
   int i ;
   digitalWrite(pinSS, LOW) ;
   delayMicroseconds(10) ;
-  i=n ; // not used 
+  i=n ; // not used
   for ( i = 3 ; i > -1 ; i--) {
     txbyte = (byte) (r.whole >> (i * 8)) ;
     SPI.transfer(txbyte) ;
